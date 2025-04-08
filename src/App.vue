@@ -1,9 +1,11 @@
 <script setup>
-
+import AppHeader from './components/AppHeader.vue'
+import AppFooter from './components/AppFooter.vue'
 </script>
 
 <template>
-  <h1>E-commerce Vue</h1>
+  <AppHeader />
+  <AppFooter />
 </template>
 
 <style scoped>
