@@ -20,6 +20,10 @@
   padding: 0;
 }
 
+.view-container {
+  padding: 3rem;
+}
+
 /* Can be removed later */
 @media (prefers-color-scheme: light) {
   :root {
