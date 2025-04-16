@@ -3,7 +3,11 @@ import { computed } from 'vue'
 
 export const useEcommerceStore = defineStore('ecommerce', {
     state: () => ({
-        activeFilters: [],
+        // The Fake Store API will return categories and prices, we can filter by them
+        activeFilters: {
+            categories: [],
+            priceRange: [0, 1000]
+        },
         cart: [],
         loadedProducts: []
     }),
@@ -13,7 +17,6 @@ export const useEcommerceStore = defineStore('ecommerce', {
             this.loadedProducts = await response.json()
         },
         addProductToCart(product) {
-            // Check if the item already exists with this function
             const existingProduct = this.cart.find(item => item.id === product.id)
 
             if (existingProduct) {
@@ -49,12 +52,16 @@ export const useEcommerceStore = defineStore('ecommerce', {
     },
     getters: {
         filteredProducts(state) {
-            if (state.activeFilters.length === 0) {
-                return state.loadedProducts
-            }
-
             return state.loadedProducts.filter(product => {
-                state.activeFilters.includes(product.category)
+                const matchesCategory = 
+                    state.activeFilters.categories.length === 0 || 
+                    state.activeFilters.categories.includes(product.category)
+
+                const matchesPriceRange = 
+                    product.price >= state.activeFilters.priceRange[0] && 
+                    product.price <= state.activeFilters.priceRange[1]
+
+                return matchesCategory && matchesPriceRange
             })
         },
         totalItems: (state) => state.cart.reduce((acc, item) => acc + item.quantity, 0),
