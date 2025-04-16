@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { computed } from 'vue'
 
 export const useEcommerceStore = defineStore('ecommerce', {
     state: () => ({
@@ -7,6 +8,10 @@ export const useEcommerceStore = defineStore('ecommerce', {
         loadedProducts: []
     }),
     actions: {
+        async loadProducts() {
+            const response = await fetch('https://fakestoreapi.com/products')
+            this.loadedProducts = await response.json()
+        },
         addProductToCart(product) {
             // Check if the item already exists with this function
             const existingProduct = this.cart.find(item => item.id === product.id)
@@ -41,6 +46,19 @@ export const useEcommerceStore = defineStore('ecommerce', {
         clearCart() {
             this.cart = []
         }
+    },
+    getters: {
+        filteredProducts(state) {
+            if (state.activeFilters.length === 0) {
+                return state.loadedProducts
+            }
+
+            return state.loadedProducts.filter(product => {
+                state.activeFilters.includes(product.category)
+            })
+        },
+        totalItems: (state) => state.cart.reduce((acc, item) => acc + item.quantity, 0),
+        totalPrice: (state) => state.cart.reduce((acc, item) => acc + item.price * item.quantity, 0)
     },
     persist: true
 })
