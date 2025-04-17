@@ -13,8 +13,12 @@ export const useEcommerceStore = defineStore('ecommerce', {
     }),
     actions: {
         async loadProducts() {
-            const response = await fetch('https://fakestoreapi.com/products')
-            this.loadedProducts = await response.json()
+            try {
+                const response = await fetch('https://fakestoreapi.com/products')
+                this.loadedProducts = await response.json()
+            } catch (error) {
+                console.error('Failed to load the products: ', error)
+            }
         },
         addProductToCart(product) {
             const existingProduct = this.cart.find(item => item.id === product.id)
