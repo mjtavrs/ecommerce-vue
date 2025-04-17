@@ -30,3 +30,18 @@
     margin: 0;
     padding: 0;
 }
+
+body {
+    padding: 2rem;
+}
+
+button {
+    background-color: var(--green);
+    border: none;
+    border-radius: 10px;
+    color: var(--light-gray);
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1.15rem;
+    padding: 0.75rem 0;
+}
