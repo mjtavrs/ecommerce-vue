@@ -10,8 +10,6 @@ onMounted(() => store.loadProducts())
 
 <template>
     <div class="container">
-        <h1>Home</h1>
-        
         <div v-if="!store.loadedProducts.length">
             <p>Loading products...</p>
         </div>
@@ -25,7 +23,7 @@ onMounted(() => store.loadProducts())
 <style scoped>
 .products-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1rem;
 }
 </style>

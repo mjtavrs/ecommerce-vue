@@ -2,12 +2,12 @@
 
 :root {
     /* Project colors */
-    --green: #3c6e71;
-    --light-gray: #f0f0f0;
+    --green: #1d4239;
+    --light-gray: #fffefa;
     --medium-gray: #e5e5e5;
     --dark-gray: #a9a9a9;
     --light-black: #1f1f1f;
-    --beige: #d9cab3;
+    --beige: #f6f2e8;
     
     /* Project font */
     --poppins: 'Poppins', sans-serif;
@@ -16,8 +16,8 @@
     line-height: 1.5;
     font-weight: 400;
 
-    color: var(--light-black);
-    background-color: var(--light-gray);
+    color: var(--green);
+    background-color: var(--beige);
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -44,4 +44,10 @@ button {
     font-weight: 500;
     font-size: 1.15rem;
     padding: 0.75rem 0;
+    transition: background-color 250ms ease-in-out;
+    outline: none;
+
+    &:hover {
+        background-color: #3a5c54;
+    }
 }

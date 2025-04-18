@@ -22,6 +22,7 @@ const props = defineProps({
 
 <style scoped>
 .product-card {
+    border: 1px solid var(--medium-gray);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -61,10 +62,8 @@ const props = defineProps({
 }
 
 .product-card-metadata-title {
-    color: var(--light-black);
     display: block;
-    font-size: 1.25rem;
-    font-weight: 500;
+    font-weight: 400;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -72,7 +71,7 @@ const props = defineProps({
 }
 
 .product-card-metadata-category {
-    background-color: var(--beige);
+    background-color: var(--medium-gray);
     border-radius: 5px;
     font-size: 0.75rem;
     font-weight: 500;
@@ -83,6 +82,6 @@ const props = defineProps({
 
 .product-card-metadata-price {
     font-size: 1.15rem;
-    font-weight: 500;
+    font-weight: 600;
 }
 </style>
