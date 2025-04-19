@@ -51,3 +51,17 @@ button {
         background-color: #3a5c54;
     }
 }
+
+.header-container-actions-wrapper {
+    background-color: var(--green);
+    border-radius: 5px;
+    cursor: pointer;
+    line-height: 0;
+    padding: 0.5rem;
+    outline: none;
+    transition: background-color 250ms ease-in-out;
+
+    &:hover {
+        background-color: #3a5c54;
+    }
+}

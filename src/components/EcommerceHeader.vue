@@ -12,9 +12,6 @@ import { PhUser, PhShoppingCartSimple } from '@phosphor-icons/vue'
             <span class="header-container-actions-wrapper">
                 <PhUser :size="20" color="white"/>
             </span>
-            <span class="header-container-actions-wrapper">
-                <PhShoppingCartSimple :size="20"  color="white"/>
-            </span>
         </div>
     </header>
 </template>
@@ -45,19 +42,5 @@ import { PhUser, PhShoppingCartSimple } from '@phosphor-icons/vue'
     align-items: center;
     display: flex;
     gap: 0.5rem;
-}
-
-.header-container-actions-wrapper {
-    background-color: var(--green);
-    border-radius: 5px;
-    cursor: pointer;
-    line-height: 0;
-    padding: 0.5rem;
-    outline: none;
-    transition: background-color 250ms ease-in-out;
-    
-    &:hover {
-        background-color: #3a5c54;
-    }
 }
 </style>
