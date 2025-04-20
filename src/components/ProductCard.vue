@@ -1,4 +1,8 @@
 <script setup>
+import { useEcommerceStore } from '../store/ecommerce';
+
+const store = useEcommerceStore()
+
 const props = defineProps({
     product: Object
 })
@@ -15,7 +19,7 @@ const props = defineProps({
                 <span class="product-card-metadata-category">{{ product.category }}</span>
                 <p class="product-card-metadata-price">US$ {{ (product.price.toFixed(2)) }}</p>
             </div>
-            <button>Add to cart</button>
+            <button @click="store.addProductToCart(product)">Add to cart</button>
         </div>
     </div>
 </template>

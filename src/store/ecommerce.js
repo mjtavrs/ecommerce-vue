@@ -33,21 +33,19 @@ export const useEcommerceStore = defineStore('ecommerce', {
             this.cart = this.cart.filter(item => item.id !== productId)
         },
         increaseItemQuantity(productId) {
-            const existingItem = this.cart.find(item => item.id === productId)
+            const index = this.cart.findIndex(item => item.id === productId)
+            if (index === -1) return
 
-            if (!existingItem) return
-
-            existingItem.quantity++
+            this.cart[index].quantity++
         },
         decreaseItemQuantity(productId) {
-            const existingItem = this.cart.find(item => item.id === productId)
+            const index = this.cart.findIndex(item => item.id === productId)
+            if (index === -1) return
 
-            if (!existingItem) return
-
-            if (existingItem.quantity > 1) {
-                existingItem.quantity--
+            if (this.cart[index].quantity > 1) {
+                this.cart[index].quantity--
             } else {
-                this.cart = this.cart.filter(item => item.id !== productId)
+                this.cart.splice(index, 1)
             }
         },
         clearCart() {

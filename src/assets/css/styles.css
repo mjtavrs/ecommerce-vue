@@ -53,10 +53,12 @@ button {
 }
 
 .header-container-actions-wrapper {
+    align-items: center;
     background-color: var(--green);
     border-radius: 5px;
     cursor: pointer;
-    line-height: 0;
+    display: flex;
+    justify-content: center;
     padding: 0.5rem;
     outline: none;
     transition: background-color 250ms ease-in-out;
