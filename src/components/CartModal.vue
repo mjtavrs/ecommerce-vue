@@ -101,15 +101,14 @@ const cart = cartStore.cart;
 }
 
 .cart-item-image {
-  width: 50px;
-  height: 50px;
-  flex-shrink: 0;
-
-  display: flex;
   align-items: center;
-  justify-content: center;
   background-color: white;
+  display: flex;
+  flex-shrink: 0;
+  height: 50px;
+  justify-content: center;
   overflow: hidden;
+  width: 50px;
 
   img {
     height: 100%;
@@ -127,13 +126,12 @@ const cart = cartStore.cart;
 
   h3 {
     font-size: 1rem;
-    margin: 0 0 0.25rem;
     font-weight: 400;
-
-    white-space: nowrap;
+    margin: 0 0 0.25rem;
+    min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
-    min-width: 0;
+    white-space: nowrap;
   }
 
   .cart-item-actions {
@@ -159,10 +157,10 @@ const cart = cartStore.cart;
 }
 
 .empty-message {
-  text-align: center;
   color: var(--dark-gray);
-  padding: 1.5rem;
   flex-grow: 1;
+  padding: 1.5rem;
+  text-align: center;
 }
 
 .cart-modal-footer {
