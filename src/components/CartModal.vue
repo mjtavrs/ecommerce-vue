@@ -36,7 +36,10 @@ const cart = cartStore.cart;
     </div>
 
     <div class="cart-modal-footer" v-if="cart.length">
-      <h2>Total: US$ {{ cartStore.totalPrice.toFixed(2) }}</h2>
+      <div class="cart-total">
+        <p>Total items: {{ cartStore.totalItems }}</p>
+        <h2>Total: US$ {{ cartStore.totalPrice.toFixed(2) }}</h2>
+      </div>
       <router-link to="/checkout">
         <button class="checkout-btn">Checkout</button>
       </router-link>
@@ -176,6 +179,15 @@ const cart = cartStore.cart;
 
   button {
     width: 100%;
+  }
+}
+
+.cart-total {
+  display: flex;
+  flex-direction: column;
+
+  p {
+    font-size: 0.875rem;
   }
 }
 </style>
