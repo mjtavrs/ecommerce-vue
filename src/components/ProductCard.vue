@@ -75,10 +75,10 @@ const props = defineProps({
 }
 
 .product-card-metadata-category {
-    background-color: var(--medium-gray);
+    background-color: var(--beige);
     border-radius: 5px;
     font-size: 0.75rem;
-    font-weight: 500;
+    font-weight: 600;
     padding: 0.2rem 0.6rem;
     text-transform: uppercase;
     max-width: fit-content;
