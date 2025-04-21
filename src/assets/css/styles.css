@@ -64,6 +64,23 @@ button {
     }
 }
 
+.clear-cart-btn {
+    align-items: center;
+    background-color: transparent;
+    border: 1px solid darkred;
+    color: darkred;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 250ms ease-in-out;
+
+    &:hover {
+        border: 1px solid transparent;
+        background-color: darkred;
+        color: white;
+    }
+}
+
 .header-container-actions-wrapper {
     align-items: center;
     background-color: var(--green);

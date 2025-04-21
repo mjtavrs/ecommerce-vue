@@ -1,5 +1,6 @@
 <script setup>
 import { useEcommerceStore } from '../store/ecommerce';
+import { PhTrash } from '@phosphor-icons/vue';
 
 const cartStore = useEcommerceStore();
 
@@ -40,9 +41,15 @@ const cart = cartStore.cart;
         <p>Total items: {{ cartStore.totalItems }}</p>
         <h2>Total: US$ {{ cartStore.totalPrice.toFixed(2) }}</h2>
       </div>
-      <router-link to="/checkout">
-        <button class="checkout-btn">Checkout</button>
-      </router-link>
+      <div class="cart-modal-footer-actions">
+        <button class="clear-cart-btn" @click="cartStore.clearCart">
+          <PhTrash :size="25" />
+          Clear cart
+        </button>
+        <router-link to="/checkout">
+          <button class="checkout-btn">Checkout</button>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -168,6 +175,15 @@ const cart = cartStore.cart;
   text-align: center;
 }
 
+.cart-total {
+  display: flex;
+  flex-direction: column;
+
+  p {
+    font-size: 0.875rem;
+  }
+}
+
 .cart-modal-footer {
   border-top: 1px solid var(--medium-gray);
   display: flex;
@@ -185,12 +201,10 @@ const cart = cartStore.cart;
   }
 }
 
-.cart-total {
+.cart-modal-footer-actions {
   display: flex;
   flex-direction: column;
-
-  p {
-    font-size: 0.875rem;
-  }
+  gap: 1rem;
 }
+
 </style>

@@ -53,7 +53,7 @@ export const useEcommerceStore = defineStore('ecommerce', {
             }
         },
         clearCart() {
-            this.cart = []
+            this.cart.splice(0, this.cart.length)
         }
     },
     getters: {
