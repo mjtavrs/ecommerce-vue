@@ -14,21 +14,23 @@ const cart = cartStore.cart;
     </div>
 
     <div class="cart-modal-body">
-      <div v-if="cart.length" class="cart-items">
-        <div v-for="item in cart" :key="item.id" class="cart-item">
-          <div class="cart-item-image">
-            <img :src="item.image" />
-          </div>
-          <div class="cart-item-information">
-            <h3>{{ item.title }}</h3>
-            <div class="cart-item-actions">
-              <button @click="cartStore.decreaseItemQuantity(item.id)"> - </button>
-              <p>{{ item.quantity }}</p>
-              <button @click="cartStore.increaseItemQuantity(item.id)"> + </button>
+      <div v-if="cart.length">
+        <TransitionGroup name="cart" tag="div" class="cart-items">
+          <div v-for="item in cart" :key="item.id" class="cart-item">
+            <div class="cart-item-image">
+              <img :src="item.image" />
             </div>
-            <p>Product total: US$ {{ (item.quantity * item.price).toFixed(2) }}</p>
+            <div class="cart-item-information">
+              <h3>{{ item.title }}</h3>
+              <div class="cart-item-actions">
+                <button @click="cartStore.decreaseItemQuantity(item.id)"> - </button>
+                <p>{{ item.quantity }}</p>
+                <button @click="cartStore.increaseItemQuantity(item.id)"> + </button>
+              </div>
+              <p>Product total: US$ {{ (item.quantity * item.price).toFixed(2) }}</p>
+            </div>
           </div>
-        </div>
+        </TransitionGroup>
       </div>
 
       <div v-else class="empty-message">
@@ -93,6 +95,19 @@ const cart = cartStore.cart;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+.cart-enter-active, .cart-leave-active {
+  transition: all 400ms ease;
+}
+
+.cart-enter-from, .cart-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.cart-move {
+  transition: transform 400ms ease;
 }
 
 .cart-item {
