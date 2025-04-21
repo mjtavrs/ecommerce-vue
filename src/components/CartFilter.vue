@@ -1,5 +1,39 @@
 <script setup>
-import { PhFunnel } from '@phosphor-icons/vue'
+import { ref, watch } from 'vue'
+import { useEcommerceStore } from '../store/ecommerce'
+import { PhFunnel, PhWarningCircle } from '@phosphor-icons/vue'
+
+const store = useEcommerceStore()
+
+const selectedCategories = ref([])
+const minProductPrice = ref('')
+const maxProductPrice = ref('')
+const error = ref('')
+
+function applyFilters() {
+    const parsedMinProductPrice = parseFloat(minProductPrice.value) || '0'
+    const parsedMaxProductPrice = parseFloat(maxProductPrice.value) || '1000'
+
+    if (parsedMinProductPrice > parsedMaxProductPrice) {
+        error.value = 'The minimum price cannot be greater than the maximum price'
+        return
+    }
+
+    store.activeFilters = {
+        ...store.activeFilters,
+        priceRange: [parsedMinProductPrice, parsedMaxProductPrice],
+        categories: selectedCategories.value
+    }
+
+    error.value = ''
+}
+
+function allowOnlyNumbersInFilter(e) {
+    const allowedKeys = /^[0-9\b]+$/
+    if (!allowedKeys.test(e.key)) {
+        e.preventDefault()
+    }
+}
 </script>
 
 <template>
@@ -15,37 +49,64 @@ import { PhFunnel } from '@phosphor-icons/vue'
             <div class="categories-container">
                 <div class="categories-input-container">
                     <div class="categories-input-wrapper">
-                        <input type="checkbox">
-                        <label for="">Electronics</label>
+                        <input type="checkbox" v-model="selectedCategories" value="electronics">
+                        <label>Electronics</label>
                     </div>
                     <div class="categories-input-wrapper">
-                        <input type="checkbox">
-                        <label for="">Jewelery</label>
+                        <input type="checkbox" v-model="selectedCategories" value="jewelery">
+                        <label>Jewelery</label>
                     </div>
                 </div>
                 <div class="categories-input-container">
                     <div class="categories-input-wrapper">
-                        <input type="checkbox">
-                        <label for="">Men's Clothing</label>
+                        <input type="checkbox" v-model="selectedCategories" value="men's clothing">
+                        <label>Men's Clothing</label>
                     </div>
                     <div class="categories-input-wrapper">
-                        <input type="checkbox">
-                        <label for="">Women's Clothing</label>
+                        <input type="checkbox" v-model="selectedCategories" value="women's clothing">
+                        <label>Women's Clothing</label>
                     </div>
                 </div>
             </div>
         </div>
         <div class="price-filter">
             <h3>Price</h3>
-            <div class="price-input-wrapper">
-                <div class="price-input-range">
-                    <span>0</span>
-                    <span>1000</span>
+            <div class="price-input-container">
+                <div class="price-input-wrapper">
+                    <label for="min-product-price">
+                        Minimum price:
+                    </label>
+                    <input
+                        id="min-product-price"
+                        type="text" 
+                        placeholder="0"
+                        v-model="minProductPrice"
+                        @keypress="allowOnlyNumbersInFilter"
+                    >
                 </div>
-                <label for="">Select a price range</label>
-                <input type="range" min="0" max="1000">
+                <div class="price-input-wrapper">
+                    <label for="max-product-price">
+                        Maximum price:
+                    </label>
+                    <input
+                        id="max-product-price"
+                        type="text" 
+                        placeholder="1000"
+                        v-model="maxProductPrice"
+                        @keypress="allowOnlyNumbersInFilter"
+                    >
+                </div>
+            </div>
+            <div v-if="error" class="error-message">
+                <span>
+                    <PhWarningCircle :size="20" color="darkred" weight="light" />
+                </span>
+                <p>
+                    {{ error }}
+                </p>
             </div>
         </div>
+        <button @click="applyFilters">Apply filters</button>
     </aside>
 </template>
 
@@ -58,9 +119,13 @@ aside {
     flex-direction: column;
     height: fit-content;
     gap: 0.5rem;
-    padding: 1rem 1rem 4rem;
+    padding: 1rem 1rem 2rem;
     width: 400px;
 
+}
+
+.categories-filter {
+    margin-top: 0.5rem;
 }
 
 .categories-filter-header {
@@ -112,6 +177,10 @@ aside {
 .price-filter {
     display: flex;
     flex-direction: column;
+
+    h3 {
+        margin-bottom: 0.75rem;
+    }
 }
 
 .price-input-range {
@@ -122,8 +191,15 @@ aside {
         background-color: var(--beige);
         border-radius: 5px;
         font-size: 0.75rem;
+        font-weight: 500;
         padding: 0.125rem 0.3rem;
     }
+}
+
+.price-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .price-input-wrapper {
@@ -132,7 +208,31 @@ aside {
     gap: 0.25rem;
 
     label {
-        display: none;
+        font-size: 0.875rem;
+    }
+
+    input {
+        border: 1px solid var(--medium-gray);
+        border-radius: 5px;
+        padding: 0.5rem;
     }
 }
+
+.error-message {
+    align-items: flex-start;
+    display: flex;
+    gap: 0.25rem;
+    margin-top: 0.5rem;
+
+    p {
+        color: darkred;
+        font-size: 0.75rem;
+        font-weight: 400;
+    }
+}
+
+button {
+    margin-top: 1rem;
+}
+
 </style>

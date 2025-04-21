@@ -36,7 +36,16 @@ body {
 }
 
 input, button {
+    font-family: var(--poppins);
     outline: none;
+}
+
+input {
+    color: var(--green);
+
+    &::placeholder {
+        color: var(--dark-gray);
+    }
 }
 
 button {
@@ -45,7 +54,7 @@ button {
     border-radius: 10px;
     color: var(--light-gray);
     cursor: pointer;
-    font-weight: 500;
+    font-weight: 400;
     font-size: 1.15rem;
     padding: 0.75rem 0;
     transition: background-color 250ms ease-in-out;

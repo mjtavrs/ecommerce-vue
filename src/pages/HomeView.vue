@@ -1,10 +1,11 @@
 <script setup>
 import { useEcommerceStore } from '../store/ecommerce.js'
-import { onMounted } from 'vue'
+import { computed, onMounted } from 'vue'
 import ProductCard from '../components/ProductCard.vue'
 import CartFilter from '../components/CartFilter.vue'
 
 const store = useEcommerceStore()
+const products = computed(() => store.filteredProducts)
 
 onMounted(() => store.loadProducts())
 </script>
@@ -12,11 +13,14 @@ onMounted(() => store.loadProducts())
 <template>
     <div class="container">
         <CartFilter />
-        <div v-if="!store.loadedProducts.length">
-            <p>Loading products...</p>
+        <div v-if="store.loading">
+            <p>Loading products, please wait...</p>
+        </div>
+        <div v-else-if="!products.length">
+            <p>No products found!</p>
         </div>
         <div v-else class="products-list">
-            <ProductCard v-for="product in store.loadedProducts" :key="product.id" :product="product" />
+            <ProductCard v-for="product in products" :key="product.id" :product="product" />
         </div>
     </div>
 </template>
