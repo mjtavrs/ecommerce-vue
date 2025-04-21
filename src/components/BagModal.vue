@@ -10,7 +10,7 @@ const cart = cartStore.cart;
 <template>
   <div class="cart-modal">
     <div class="cart-modal-header">
-      <h2>Your cart</h2>
+      <h2>Your bag</h2>
     </div>
 
     <div class="cart-modal-body">
@@ -34,7 +34,7 @@ const cart = cartStore.cart;
       </div>
 
       <div v-else class="empty-message">
-        <p>Your cart is empty</p>
+        <p>Your bag is empty</p>
       </div>
     </div>
 
@@ -46,10 +46,10 @@ const cart = cartStore.cart;
       <div class="cart-modal-footer-actions">
         <button class="clear-cart-btn" @click="cartStore.clearCart">
           <PhTrash :size="25" />
-          Clear cart
+          Clear bag
         </button>
-        <router-link to="/checkout">
-          <button class="checkout-btn">Checkout</button>
+        <router-link to="/cart">
+          <button class="checkout-btn">Proceed to checkout</button>
         </router-link>
       </div>
     </div>

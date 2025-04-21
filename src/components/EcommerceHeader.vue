@@ -1,6 +1,6 @@
 <script setup>
 import { PhUser } from '@phosphor-icons/vue'
-import CartButton from './CartButton.vue'
+import BagButton from './BagButton.vue'
 </script>
 
 <template>
@@ -13,7 +13,7 @@ import CartButton from './CartButton.vue'
             <span class="header-container-actions-wrapper">
                 <PhUser :size="20" color="white" />
             </span>
-            <CartButton />
+            <BagButton />
         </div>
     </header>
 </template>

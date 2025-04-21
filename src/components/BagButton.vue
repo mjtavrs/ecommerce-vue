@@ -1,24 +1,22 @@
 <script setup>
 import { ref } from "vue";
-import { PhShoppingCartSimple } from "@phosphor-icons/vue";
+import { PhBasket } from "@phosphor-icons/vue";
 import { useEcommerceStore } from "../store/ecommerce";
-import CartModal from "./CartModal.vue";
+import CartModal from "./BagModal.vue";
 
 const cartStore = useEcommerceStore();
+const showBag = ref(false);
 
-const cart = cartStore.cart;
-const showCart = ref(false);
-
-const toggleShowCart = () => {
-  showCart.value = !showCart.value;
+const toggleShowBag = () => {
+  showBag.value = !showBag.value;
 };
 </script>
 
 <template>
   <span class="header-container-actions-wrapper" >
-    <PhShoppingCartSimple :size="20" color="white" @click="toggleShowCart" />
-    <span class="header-container-total-items" v-if="!showCart">{{ cartStore.totalItems }}</span>
-    <CartModal v-if="showCart" />
+    <PhBasket :size="20" color="white" @click="toggleShowBag"  />
+    <span class="header-container-total-items" v-if="!showBag">{{ cartStore.totalItems }}</span>
+    <CartModal v-if="showBag" />
   </span>
 </template>
 
