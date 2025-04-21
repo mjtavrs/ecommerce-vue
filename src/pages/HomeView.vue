@@ -20,7 +20,9 @@ onMounted(() => store.loadProducts())
             <p>No products found!</p>
         </div>
         <div v-else class="products-list">
-            <ProductCard v-for="product in products" :key="product.id" :product="product" />
+            <TransitionGroup name="fade" tag="div" class="products-list">
+                <ProductCard v-for="product in products" :key="product.id" :product="product" />
+            </TransitionGroup>
         </div>
     </div>
 </template>
@@ -36,5 +38,14 @@ onMounted(() => store.loadProducts())
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1rem;
     width: 100%;
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: all 700ms ease-in-out;
+}
+
+.fade-enter-from, .fade-leave-to {
+    opacity: 0;
+    transform: scale(0.7);
 }
 </style>
