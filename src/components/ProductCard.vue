@@ -16,6 +16,7 @@ const props = defineProps({
         <div class="product-card-metadata">
             <div class="product-card-metadata-wrapper">
                 <h3 class="product-card-metadata-title">{{ product.title }}</h3>
+                <p class="product-card-metadata-rating">⭐ {{ product.rating.rate }} ({{ product.rating.count }}) </p>
                 <span class="product-card-metadata-category">{{ product.category }}</span>
                 <p class="product-card-metadata-price">US$ {{ (product.price.toFixed(2)) }}</p>
             </div>
@@ -74,7 +75,7 @@ const props = defineProps({
     width: 100%;
 }
 
-.product-card-metadata-category {
+.product-card-metadata-category, .product-card-metadata-rating {
     background-color: var(--beige);
     border-radius: 5px;
     font-size: 0.75rem;
