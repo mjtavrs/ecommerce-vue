@@ -55,6 +55,7 @@ const cart = cartStore.cart;
   -webkit-box-shadow: 0px 0px 25px 1px rgba(31,31,31,0.20);
   -moz-box-shadow: 0px 0px 25px 1px rgba(31,31,31,0.20);
   box-shadow: 0px 0px 25px 1px rgba(31,31,31,0.20);
+  cursor: default;
   display: flex;
   flex-direction: column;
   max-height: 50vh;
@@ -137,7 +138,11 @@ const cart = cartStore.cart;
   .cart-item-actions {
     align-items: center;
     display: flex;
-    gap: 1rem;
+    gap: 0.75rem;
+
+    p {
+      font-weight: 600;
+    }
 
     button {
       align-items: center;
