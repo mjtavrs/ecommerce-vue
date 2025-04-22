@@ -1,16 +1,23 @@
 <script setup>
 import { computed } from 'vue'
-import { PhTrash } from '@phosphor-icons/vue'
+import { PhShoppingCart, PhTrash } from '@phosphor-icons/vue'
 import { useEcommerceStore } from '../store/ecommerce.js'
 
 const cartStore = useEcommerceStore()
 const cart = computed(() => cartStore.cart)
-
 </script>
 
 <template>
     <div class="cart-container">
-        <h1>Review your items</h1>
+        <div class="cart-container-header">
+            <h1>Review your items</h1>
+            <router-link to="/">
+                <button>
+                    <PhShoppingCart :size="30" />
+                    Continue shopping
+                </button>
+            </router-link>
+        </div>
         <div class="cart-information-container">
             <div class="cart-items">
                 <div v-if="cart.length">
@@ -56,7 +63,9 @@ const cart = computed(() => cartStore.cart)
                     <p class="cart-summary-total-price">Cart total: US$ {{ cartStore.totalPrice.toFixed(2) }}</p>
                 </div>
                 <div class="cart-summary-actions">
-                    <button>Checkout</button>
+                    <router-link to="/checkout">
+                        <button>Checkout</button>
+                    </router-link>
                     <button class="clear-cart-btn" @click="cartStore.clearCart">
                         <PhTrash :size="25" />
                         Clear cart
@@ -76,12 +85,26 @@ const cart = computed(() => cartStore.cart)
     overflow: hidden;
     padding: 2rem;
 
+}
+
+.cart-container-header {
+    align-items: center;
+    border-bottom: 1px solid var(--medium-gray);
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 0.5rem;
+    margin-bottom: 2rem;
+
     h1 {
-        border-bottom: 1px solid var(--medium-gray);
         font-size: 2.75rem;
         font-weight: 300;
-        padding-bottom: 0.5rem;
-        margin-bottom: 2rem;
+    }
+
+    button {
+        align-items: center;
+        display: flex;
+        gap: 0.5rem;
+        padding-inline: 1rem;
     }
 }
 
@@ -265,7 +288,6 @@ const cart = computed(() => cartStore.cart)
     a {
         color: olivedrab;
         font-weight: 500;
-        text-decoration: none;
     }
 }
 </style>
