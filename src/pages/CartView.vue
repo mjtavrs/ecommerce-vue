@@ -12,7 +12,7 @@ const cart = computed(() => cartStore.cart)
         <div class="cart-container-header">
             <h1>Review your items</h1>
             <router-link to="/">
-                <button>
+                <button v-if="cart.length">
                     <PhShoppingCart :size="30" />
                     Continue shopping
                 </button>
