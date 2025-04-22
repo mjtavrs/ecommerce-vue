@@ -13,43 +13,54 @@ const cart = computed(() => cartStore.cart)
         <h1>Review your items</h1>
         <div class="cart-information-container">
             <div class="cart-items">
-                <div v-if="cart.length" v-for="item in cart" :key="item.id" class="cart-item">
-                    <div class="cart-item-image">
-                        <img :src="item.image" />
-                    </div>
-                    <div class="cart-item-information-container">
-                        <div class="cart-item-information-wrapper">
-                            <div class="cart-item-metadata">
-                                <h3 class="cart-item-title">{{ item.title }}</h3>
-                                <p class="cart-item-rating">⭐ {{ item.rating.rate }} ({{ item.rating.count }}) </p>
-                                <p class="cart-item-price">US$ {{ (item.price.toFixed(2)) }}</p>
-                            </div>
-                            <div class="cart-item-actions">
-                                <button @click="cartStore.decreaseItemQuantity(item.id)"> - </button>
-                                <p>{{ item.quantity }}</p>
-                                <button @click="cartStore.increaseItemQuantity(item.id)"> + </button>
-                            </div>
+                <div v-if="cart.length">
+                    <div v-for="item in cart" :key="item.id" class="cart-item">
+                        <div class="cart-item-image">
+                            <img :src="item.image" />
                         </div>
-                        <button class="clear-cart-btn" @click="cartStore.removeProductFromCart(item.id)">
-                            <PhTrash :size="25" />
-                            Remove item
-                        </button>
+                        <div class="cart-item-information-container">
+                            <div class="cart-item-information-wrapper">
+                                <div class="cart-item-metadata">
+                                    <h3 class="cart-item-title">{{ item.title }}</h3>
+                                    <p class="cart-item-rating">⭐ {{ item.rating.rate }} ({{ item.rating.count }}) </p>
+                                    <p class="cart-item-price">US$ {{ (item.price.toFixed(2)) }}</p>
+                                </div>
+                                <div class="cart-item-actions">
+                                    <button @click="cartStore.decreaseItemQuantity(item.id)"> - </button>
+                                    <p>{{ item.quantity }}</p>
+                                    <button @click="cartStore.increaseItemQuantity(item.id)"> + </button>
+                                </div>
+                            </div>
+                            <button class="clear-cart-btn" @click="cartStore.removeProductFromCart(item.id)">
+                                <PhTrash :size="25" />
+                                Remove item
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div v-else>
-                    <p>
-                        Your cart is empty!
-                    </p>
+                    <div class="empty-cart-message">
+                        <h2>
+                            Ops, seems like your cart is empty!
+                        </h2>
+                        <p>
+                            Keep looking our <router-link to="/">shop</router-link> to find something you like.
+                        </p>
+                    </div>
                 </div>
             </div>
-            <div class="cart-summary">
+            <div v-if="cart.length" class="cart-summary">
                 <h2>Cart summary</h2>
-                <div>
-                    <p>Number of items in the cart: {{ cartStore.totalItems }}</p>
-                    <p>Cart total: US$ {{ cartStore.totalPrice.toFixed(2) }}</p>
+                <div class="cart-summary-items-and-price">
+                    <p class="cart-summary-total-items">Number of items in the cart: {{ cartStore.totalItems }}</p>
+                    <p class="cart-summary-total-price">Cart total: US$ {{ cartStore.totalPrice.toFixed(2) }}</p>
                 </div>
-                <div>
+                <div class="cart-summary-actions">
                     <button>Checkout</button>
+                    <button class="clear-cart-btn" @click="cartStore.clearCart">
+                        <PhTrash :size="25" />
+                        Clear cart
+                    </button>
                     <p>Shipping and taxes are calculated at checkout</p>
                 </div>
             </div>
@@ -76,7 +87,7 @@ const cart = computed(() => cartStore.cart)
 
 .cart-information-container {
     display: flex;
-    gap: 10rem;
+    gap: 4rem;
 }
 
 .cart-items {
@@ -175,7 +186,86 @@ const cart = computed(() => cartStore.cart)
     }
 }
 
+/* This button will remove the item from the cart */
 .clear-cart-btn {
     width: 33%;
+}
+
+.cart-summary {
+    border: 1px solid var(--medium-gray);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    max-height: fit-content;
+    padding: 1rem;
+    min-width: 20%;
+    max-width: 25%;
+
+    h2 {
+        border-bottom: 1px solid var(--medium-gray);
+        font-size: 2rem;
+        font-weight: 300;
+        padding-bottom: 0.5rem;
+    }
+}
+
+.cart-summary-items-and-price {
+    border-bottom: 1px solid var(--medium-gray);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding-block: 1.5rem;
+}
+
+.cart-summary-total-items {
+    font-size: 1.1rem;
+    font-weight: 300;
+}
+
+.cart-summary-total-price {
+    font-size: 1.75rem;
+    font-weight: 500;
+}
+
+.cart-summary-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 1.5rem;
+
+    button {
+        width: 100%;
+    }
+
+    p {
+        font-weight: 500;
+        font-size: 0.75rem;
+        text-align: center;
+    }
+}
+
+.empty-cart-message {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    justify-content: center;
+    padding-block: 10rem;
+
+    h2 {
+        font-size: 2.5rem;
+        font-weight: 300;
+    }
+
+    p {
+        font-size: 1.25rem;
+        font-weight: 300;
+    }
+
+    a {
+        color: olivedrab;
+        font-weight: 500;
+        text-decoration: none;
+    }
 }
 </style>
