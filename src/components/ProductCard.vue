@@ -10,22 +10,31 @@ const props = defineProps({
 
 <template>
     <div class="product-card">
-        <div class="product-card-image-container">
-            <img :src="product.image" :alt="product.title">
-        </div>
-        <div class="product-card-metadata">
-            <div class="product-card-metadata-wrapper">
-                <h3 class="product-card-metadata-title">{{ product.title }}</h3>
-                <p class="product-card-metadata-rating">⭐ {{ product.rating.rate }} ({{ product.rating.count }}) </p>
-                <span class="product-card-metadata-category">{{ product.category }}</span>
-                <p class="product-card-metadata-price">US$ {{ (product.price.toFixed(2)) }}</p>
+        <router-link :to="`/product/${product.id}`">
+            <div class="product-card-image-container">
+                <img :src="product.image" :alt="product.title">
             </div>
+        </router-link>
+        <div class="product-card-metadata">
+            <router-link :to="`/product/${product.id}`">
+                <div class="product-card-metadata-wrapper">
+                    <h3 class="product-card-metadata-title">{{ product.title }}</h3>
+                    <p class="product-card-metadata-rating">⭐ {{ product.rating.rate }} ({{ product.rating.count }}) </p>
+                    <span class="product-card-metadata-category">{{ product.category }}</span>
+                    <p class="product-card-metadata-price">US$ {{ (product.price.toFixed(2)) }}</p>
+                </div>
+            </router-link>
             <button @click="store.addProductToCart(product)">Add to cart</button>
         </div>
     </div>
 </template>
 
 <style scoped>
+a {
+    color: var(--green);
+    text-decoration: none;
+}
+
 .product-card {
     border: 1px solid var(--medium-gray);
     border-radius: 10px;
