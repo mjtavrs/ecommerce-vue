@@ -1,15 +1,29 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watch, onMounted, onBeforeUnmount } from "vue";
+import { useRoute } from "vue-router";
 import { PhBasket } from "@phosphor-icons/vue";
 import { useEcommerceStore } from "../store/ecommerce";
 import CartModal from "./BagModal.vue";
 
 const cartStore = useEcommerceStore();
 const showBag = ref(false);
+const route = useRoute()
 
 const toggleShowBag = () => {
   showBag.value = !showBag.value;
-};
+}
+
+// Different ways to close the bag modal
+function handleEscapeKey(e) {
+  if (e.key === "Escape") showBag.value = false
+}
+
+onMounted(() => window.addEventListener("keydown", handleEscapeKey))
+onBeforeUnmount(() => window.removeEventListener("keydown", handleEscapeKey))
+
+watch(() => route.fullPath, () => {
+  showBag.value = false
+})
 </script>
 
 <template>
