@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { PhShoppingCart, PhTrash } from '@phosphor-icons/vue'
-import { useEcommerceStore } from '../store/ecommerce.js'
+import { useEcommerceStore } from '../store/ecommerce'
 
 const cartStore = useEcommerceStore()
 const cart = computed(() => cartStore.cart)
