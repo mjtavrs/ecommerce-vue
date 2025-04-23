@@ -24,13 +24,13 @@ export const useEcommerceStore = defineStore('ecommerce', {
                 this.loading = false
             }
         },
-        addProductToCart(product) {
+        addProductToCart(product, quantity = 1) {
             const existingProduct = this.cart.find(item => item.id === product.id)
 
             if (existingProduct) {
-                existingProduct.quantity++
+                existingProduct.quantity += quantity
             } else {
-                this.cart.push({ ...product, quantity: 1 })
+                this.cart.push({ ...product, quantity})
             }
         },
         removeProductFromCart(productId) {

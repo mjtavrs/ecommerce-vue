@@ -2,12 +2,18 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useProduct } from '../composables/useProduct'
+import { useEcommerceStore } from '../store/ecommerce'
+import { PhShoppingCartSimple, PhPlus, PhCheck } from '@phosphor-icons/vue'
+
+const props = defineProps(['id'])
 
 const route = useRoute()
 const router = useRouter()
 const productId = Number(route.params.id)
+const store = useEcommerceStore()
 
 const quantityToBeBought = ref(1)
+const addedToCart = ref(false)
 
 const { product, error, fetchProduct } = useProduct()
 
@@ -17,6 +23,17 @@ function increaseItemQuantity() {
 
 function decreaseItemQuantity() {
     if (quantityToBeBought.value > 1) quantityToBeBought.value--
+}
+
+function handleAddToCart() {
+    if (product.value) {
+        store.addProductToCart(product.value, quantityToBeBought.value)
+        addedToCart.value = true
+
+        setTimeout(() => {
+            router.push("/cart")
+        }, 750)
+    }
 }
 
 onMounted(async () => {
@@ -36,34 +53,46 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="return-button-container">
-        <router-link to="/">
-            <button v-if="product" class="return-button">
-                Return to the store
-            </button>
-        </router-link>
-    </div>
-    <div v-if="product" class="product-container">
-        <div class="product-container-wrapper">
-            <div class="product-container-image">
-                <img :src="product.image" :alt="product.title">
-            </div>
-            <div class="product-container-information">
-                <h1 class="product-title">{{ product.title }}</h1>
-                <p class="product-price">US$ {{ (product.price.toFixed(2)) }}</p>
-                <p class="product-rating">⭐ {{ product.rating.rate }} ({{ product.rating.count }})</p>
-                <p class="product-description">{{ product.description }}</p>
-                <div class="product-container-actions">
-                    <h3>Quantity</h3>
-                    <div class="product-container-quantity">
-                        <button @click="decreaseItemQuantity" class="decreaseButton"> - </button>
-                        <p>{{ quantityToBeBought }}</p>
-                        <button @click="increaseItemQuantity" class="increaseButton"> + </button>
+    <main>
+        <div class="return-button-container">
+            <router-link to="/">
+                <button v-if="product" class="return-button">
+                    Return to the store
+                </button>
+            </router-link>
+        </div>
+        <div v-if="product" class="product-container">
+            <div class="product-container-wrapper">
+                <div class="product-container-image">
+                    <img :src="product.image" :alt="product.title">
+                </div>
+                <div class="product-container-information">
+                    <h1 class="product-title">{{ product.title }}</h1>
+                    <p class="product-price">US$ {{ (product.price.toFixed(2)) }}</p>
+                    <p class="product-rating">⭐ {{ product.rating.rate }} ({{ product.rating.count }})</p>
+                    <p class="product-description">{{ product.description }}</p>
+                    <div class="product-container-actions">
+                        <h3>Quantity</h3>
+                        <div class="product-container-quantity">
+                            <button @click="decreaseItemQuantity" class="decreaseButton"> - </button>
+                            <p>{{ quantityToBeBought }}</p>
+                            <button @click="increaseItemQuantity" class="increaseButton"> + </button>
+                        </div>
+                        <div class="product-container-add-to-bag">
+                            <button @click="handleAddToCart" class="add-to-bag-button">Add to cart</button>
+                            <div @click="handleAddToCart" class="product-container-add-to-bag-animated-icon">
+                                <PhShoppingCartSimple :size="30" color="white" />
+                                <span>
+                                    <PhPlus :size="12" weight="bold" v-if="!addedToCart"/>
+                                    <PhCheck :size="12" weight="bold" v-else />
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 </template>
 
 <style scoped>
@@ -168,6 +197,41 @@ onMounted(async () => {
     .increaseButton {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
+    }
+}
+
+.product-container-add-to-bag {
+    align-items: center;
+    display: flex;
+    gap: 0.5rem;
+
+}
+
+.add-to-bag-button {
+    padding-inline: 2rem;
+}
+
+.product-container-add-to-bag-animated-icon {
+    background-color: var(--green);
+    border-radius: 10px;
+    cursor: pointer;
+    line-height: 0;
+    position: relative;
+    padding: 0.65rem;
+    transition: background-color 250ms ease-in-out;
+
+    &:hover {
+        background-color: #3a5c54;
+    }
+
+    span {
+        background-color: var(--beige);
+        border-radius: 100%;
+        line-height: 0;
+        padding: 0.1rem 0.05rem;
+        position: absolute;
+        top: 5%;
+        right: 5%;
     }
 }
 </style>

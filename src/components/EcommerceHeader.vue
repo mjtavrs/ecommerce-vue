@@ -5,10 +5,12 @@ import BagButton from './BagButton.vue'
 
 <template>
     <header class="header-container">
-        <div class="header-container-title">
-            <img src="../assets/images/vue_logo.png" alt="Vue.js logo">
-            <h1>Store</h1>
-        </div>
+        <router-link to="/">
+            <div class="header-container-title">
+                <img src="../assets/images/vue_logo.png" alt="Vue.js logo">
+                <h1>Store</h1>
+            </div>
+        </router-link>
         <div class="header-container-actions">
             <span class="header-container-actions-wrapper">
                 <PhUser :size="20" color="white" />

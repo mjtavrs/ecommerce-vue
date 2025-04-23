@@ -4,9 +4,11 @@ import EcommerceHeader from './components/EcommerceHeader.vue'
 
 <template>
   <EcommerceHeader />
-  <Transition name="slide-fade" mode="out-in">
-    <router-view />
-  </Transition>
+  <router-view v-slot="{ Component }">
+    <Transition name="slide-fade" mode="out-in">
+      <component :is="Component" />
+    </Transition>
+  </router-view>
 </template>
 
 <style scoped>

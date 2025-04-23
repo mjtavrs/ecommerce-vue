@@ -11,7 +11,7 @@ onMounted(() => store.loadProducts())
 </script>
 
 <template>
-    <div class="container">
+    <main class="container">
         <CartFilter />
         <div v-if="store.loading">
             <p>Loading products, please wait...</p>
@@ -24,7 +24,7 @@ onMounted(() => store.loadProducts())
                 <ProductCard v-for="product in products" :key="product.id" :product="product" />
             </TransitionGroup>
         </div>
-    </div>
+    </main>
 </template>
 
 <style scoped>

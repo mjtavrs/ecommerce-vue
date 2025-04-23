@@ -8,7 +8,7 @@ const cart = computed(() => cartStore.cart)
 </script>
 
 <template>
-    <div class="cart-container">
+    <main class="cart-container">
         <div class="cart-container-header">
             <h1>Review your items</h1>
             <router-link to="/">
@@ -28,7 +28,9 @@ const cart = computed(() => cartStore.cart)
                         <div class="cart-item-information-container">
                             <div class="cart-item-information-wrapper">
                                 <div class="cart-item-metadata">
-                                    <h3 class="cart-item-title">{{ item.title }}</h3>
+                                    <router-link :to="`/product/${item.id}`">
+                                        <h3 class="cart-item-title">{{ item.title }}</h3>
+                                    </router-link>
                                     <p class="cart-item-rating">⭐ {{ item.rating.rate }} ({{ item.rating.count }}) </p>
                                     <p class="cart-item-price">US$ {{ (item.price.toFixed(2)) }}</p>
                                 </div>
@@ -74,7 +76,7 @@ const cart = computed(() => cartStore.cart)
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 </template>
 
 <style scoped>
