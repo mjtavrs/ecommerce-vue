@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useProduct } from '../composables/useProduct'
 import { useEcommerceStore } from '../store/ecommerce'
@@ -9,7 +9,7 @@ const props = defineProps(['id'])
 
 const route = useRoute()
 const router = useRouter()
-const productId = Number(route.params.id)
+const productId = ref(Number(route.params.id))
 const store = useEcommerceStore()
 
 const quantityToBeBought = ref(1)
@@ -36,20 +36,26 @@ function handleAddToCart() {
     }
 }
 
-onMounted(async () => {
+watch(() => route.params.id, async (newId) => {
+    const id = Number(newId)
+    
     // If the user gives an invalid id the app redirects to a not found page
-    if (isNaN(productId)) {
+    if (isNaN(id)) {
         router.replace("/not-found")
         return
     }
 
-    await fetchProduct(productId)
+    await fetchProduct(id)
 
     // If the product is not found the app redirects to a not found page
     if (error.value) {
         router.replace("/not-found")
+    } else {
+        productId.value = id
+        quantityToBeBought.value = 1
+        addedToCart.value = false
     }
-})
+}, { immediate: true })
 </script>
 
 <template>
