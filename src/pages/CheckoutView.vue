@@ -21,6 +21,14 @@ function handleExpirationDate(e) {
     expirationDate.value = formatExpirationDate(e.target.value)
 }
 
+
+function allowOnlyNumbers(e) {
+    const allowedKeys = /^[0-9\b]+$/
+    if (!allowedKeys.test(e.key)) {
+        e.preventDefault()
+    }
+}
+
 function completeOrder() {
     cartStore.allowSuccessAccess()
     router.push('/success')
@@ -37,11 +45,11 @@ function completeOrder() {
                         <h2>Shipping information</h2>
                         <div class="shipping-information-inputs">
                             <input type="text" class="shipping-information-input" id="full-name"
-                                placeholder="Full name">
-                            <input type="email" class="shipping-information-input" id="email" placeholder="E-mail">
-                            <input type="text" class="shipping-information-input" id="address" placeholder="Address">
+                                placeholder="Full name" required>
+                            <input type="email" class="shipping-information-input" id="email" placeholder="E-mail" required>
+                            <input type="text" class="shipping-information-input" id="address" placeholder="Address" required>
                             <input type="text" class="shipping-information-input" id="city-state-zipcode"
-                                placeholder="City, State, ZIP">
+                                placeholder="City, State, ZIP" required>
                         </div>
                     </div>
                     <div class="payment-method-container">
@@ -51,16 +59,16 @@ function completeOrder() {
                             <label for="credit-card">Credit card</label>
                         </div>
                         <div class="payment-method-inputs">
-                            <input type="text" placeholder="Card number (Numbers only)" maxlength="19" v-model="cardNumber" @input="handleCardNumber">
+                            <input type="text" placeholder="Card number (Numbers only)" maxlength="19" v-model="cardNumber" @input="handleCardNumber" required>
                             <div class="payment-method-expiration-cvv">
-                                <input type="text" placeholder="Card owner name" class="card-owner-name-input">
-                                <input type="text" placeholder="Expiration Date (MM/YYYY)" class="expiration-date-input" maxlength="7" v-model="expirationDate" @input="handleExpirationDate">
-                                <input type="text" placeholder="CVV" class="cvv-input" maxlength="3">
+                                <input type="text" placeholder="Card owner name" class="card-owner-name-input" required>
+                                <input type="text" placeholder="Expiration Date (MM/YYYY)" class="expiration-date-input" maxlength="7" v-model="expirationDate" @input="handleExpirationDate" required>
+                                <input type="text" placeholder="CVV" class="cvv-input" maxlength="3" @keypress="allowOnlyNumbers" required>
                             </div>
                         </div>
                     </div>
                     <div class="accept-terms">
-                        <input type="checkbox" id="accept-terms">
+                        <input type="checkbox" id="accept-terms" required>
                         <label for="accept-terms">I agree to the terms and conditions</label>
                     </div>
                 </div>
