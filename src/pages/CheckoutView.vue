@@ -1,10 +1,23 @@
 <script setup>
+import { ref } from 'vue'
 import { useEcommerceStore } from '../store/ecommerce'
+import { usePaymentInputFormatter } from '../composables/usePaymentInputFormatter'
 
 const cartStore = useEcommerceStore()
 const cart = cartStore.cart
-
+const { formatCardNumber, formatExpirationDate } = usePaymentInputFormatter()
 const fixedShippingCost = 5
+
+const cardNumber = ref('')
+const expirationDate = ref('')
+
+function handleCardNumber(e) {
+    cardNumber.value = formatCardNumber(e.target.value)
+}
+
+function handleExpirationDate(e) {
+    expirationDate.value = formatExpirationDate(e.target.value)
+}
 </script>
 
 <template>
@@ -31,11 +44,11 @@ const fixedShippingCost = 5
                             <label for="credit-card">Credit card</label>
                         </div>
                         <div class="payment-method-inputs">
-                            <input type="text" placeholder="Card number">
+                            <input type="text" placeholder="Card number (Numbers only)" maxlength="19" v-model="cardNumber" @input="handleCardNumber">
                             <div class="payment-method-expiration-cvv">
                                 <input type="text" placeholder="Card owner name" class="card-owner-name-input">
-                                <input type="text" placeholder="Expiration Date (MM/YY)" class="expiration-date-input">
-                                <input type="text" placeholder="CVV" class="cvv-input">
+                                <input type="text" placeholder="Expiration Date (MM/YYYY)" class="expiration-date-input" maxlength="7" v-model="expirationDate" @input="handleExpirationDate">
+                                <input type="text" placeholder="CVV" class="cvv-input" maxlength="3">
                             </div>
                         </div>
                     </div>
@@ -80,9 +93,14 @@ const fixedShippingCost = 5
                         </div>
                     </div>
                     <div class="checkout-cart-actions">
-                        <router-link to="/">
-                            <button class="add-more-items-button">Add more items</button>
-                        </router-link>
+                        <div>
+                            <router-link to="/">
+                                <button class="add-more-items-button">Add more items</button>
+                            </router-link>
+                            <button class="clear-cart-btn" @click="cartStore.clearCart()">
+                                Cancel order
+                            </button>
+                        </div>
                         <router-link to="/">
                             <button>Place order</button>
                         </router-link>
@@ -285,6 +303,15 @@ input[type=email] {
     gap: 1rem;
     padding-top: 1rem;
     
+    div {
+        display: flex;
+        gap: 0.5rem;
+        
+        a {
+            width: 100%;
+        }
+    }
+
     button {
         width: 100%;
     }
