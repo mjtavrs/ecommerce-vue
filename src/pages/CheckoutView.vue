@@ -1,8 +1,10 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { useEcommerceStore } from '../store/ecommerce'
 import { usePaymentInputFormatter } from '../composables/usePaymentInputFormatter'
 
+const router = useRouter()
 const cartStore = useEcommerceStore()
 const cart = cartStore.cart
 const { formatCardNumber, formatExpirationDate } = usePaymentInputFormatter()
@@ -17,6 +19,11 @@ function handleCardNumber(e) {
 
 function handleExpirationDate(e) {
     expirationDate.value = formatExpirationDate(e.target.value)
+}
+
+function completeOrder() {
+    cartStore.allowSuccessAccess()
+    router.push('/success')
 }
 </script>
 
@@ -101,9 +108,7 @@ function handleExpirationDate(e) {
                                 Cancel order
                             </button>
                         </div>
-                        <router-link to="/">
-                            <button>Place order</button>
-                        </router-link>
+                        <button @click="completeOrder">Place order</button>
                     </div>
                 </div>
             </div>

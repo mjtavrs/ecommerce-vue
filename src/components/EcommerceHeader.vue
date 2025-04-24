@@ -26,6 +26,10 @@ import BagButton from './BagButton.vue'
     display: flex;
     justify-content: space-between;
     margin-bottom: 2rem;
+
+    a {
+        outline: none;
+    }
 }
 
 .header-container-title {

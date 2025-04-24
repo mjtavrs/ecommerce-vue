@@ -10,7 +10,8 @@ export const useEcommerceStore = defineStore('ecommerce', {
         },
         cart: [],
         loadedProducts: [],
-        loading: false
+        loading: false,
+        successAccessAllowed: false
     }),
     actions: {
         async loadProducts() {
@@ -23,6 +24,12 @@ export const useEcommerceStore = defineStore('ecommerce', {
             } finally {
                 this.loading = false
             }
+        },
+        allowSuccessAccess() {
+            this.successAccessAllowed = true
+        },
+        resetSuccessAccess() {
+            this.successAccessAllowed = false
         },
         addProductToCart(product, quantity = 1) {
             const existingProduct = this.cart.find(item => item.id === product.id)

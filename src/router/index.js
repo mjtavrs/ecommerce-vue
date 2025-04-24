@@ -3,6 +3,7 @@ import HomeView from '../pages/HomeView.vue'
 import CartView from '../pages/CartView.vue'
 import CheckoutView from '../pages/CheckoutView.vue'
 import ProductDetailView from '../pages/ProductDetailView.vue'
+import OrderSuccessView from '../pages/OrderSuccessView.vue'
 import NotFoundView from '../pages/NotFoundView.vue'
 
 const routes = [
@@ -10,6 +11,7 @@ const routes = [
     { path: '/cart', component: CartView },
     { path: '/checkout', component: CheckoutView },
     { path: '/product/:id', component: ProductDetailView, props: true },
+    { path: '/success', component: OrderSuccessView },
     { path: '/:catchAll(.*)', component: NotFoundView }
 ]
 
