@@ -52,9 +52,9 @@ const fixedShippingCost = 5
                                 <div class="order-summary-item">
                                     <div class="order-summary-item-title-and-quantity">
                                         <p>{{ item.title }}</p>
-                                        <span>
-                                            x{{ item.quantity }}
-                                        </span>
+                                        <div>
+                                            <p>x{{ item.quantity }}</p>
+                                        </div>
                                     </div>
                                     <p class="order-summary-item-price">
                                         US$ {{ (item.price).toFixed(2) }}
@@ -212,11 +212,12 @@ input[type=email] {
 
 .order-summary-items {
     display: flex;
-    gap: 1.5rem;
+    gap: 2rem;
     flex-direction: column;
 }
 
 .order-summary-item {
+    align-items: center;
     display: flex;
     justify-content: space-between;
 }
@@ -224,6 +225,7 @@ input[type=email] {
 .order-summary-item-title-and-quantity {
     align-items: center;
     display: flex;
+    gap: 1rem;
     width: 100%;
     
     p {
@@ -232,13 +234,22 @@ input[type=email] {
         width: 200px;
     }
 
-    span {
+    div {
         background-color: var(--beige);
         border: 1px solid var(--medium-gray);
         border-radius: 5px;
-        font-weight: 600;
-        font-size: 0.875rem;
-        padding: 0.05rem 0.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 25px;
+        width: 25px;
+        text-align: center;
+        
+        p {
+            line-height: 0;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
     }
 }
 
