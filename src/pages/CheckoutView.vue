@@ -12,6 +12,7 @@ const fixedShippingCost = 5
 
 const cardNumber = ref('')
 const expirationDate = ref('')
+const checkoutForm = ref(null)
 
 function handleCardNumber(e) {
     cardNumber.value = formatCardNumber(e.target.value)
@@ -21,7 +22,6 @@ function handleExpirationDate(e) {
     expirationDate.value = formatExpirationDate(e.target.value)
 }
 
-
 function allowOnlyNumbers(e) {
     const allowedKeys = /^[0-9\b]+$/
     if (!allowedKeys.test(e.key)) {
@@ -29,7 +29,39 @@ function allowOnlyNumbers(e) {
     }
 }
 
-function completeOrder() {
+async function handleCheckCartValidity() {
+    const products = await fetch('https://fakestoreapi.com/products')
+    const productsJson = await products.json()
+
+    for (const item of cart) {
+        const product = productsJson.find(product => product.id === item.id)
+
+        if (!product) {
+            console.log("Product not found")
+            return false
+        }
+
+        if (product.title !== item.title || product.price !== item.price) {
+            console.log("The product has been altered. Order not valid.")
+            return false
+        }
+    }
+
+    return true
+}
+
+async function completeOrder() {
+    if (!checkoutForm.value.checkValidity()) {
+        checkoutForm.value.reportValidity()
+        return
+    }
+
+    const isCartValid = await handleCheckCartValidity()
+    if (!isCartValid) {
+        console.log("Order not valid. Please, try again.")
+        return
+    }
+
     cartStore.allowSuccessAccess()
     router.push('/success')
 }
@@ -39,86 +71,95 @@ function completeOrder() {
     <main class="checkout-container">
         <div v-if="cart.length" class="checkout-container-content">
             <h1>Checkout</h1>
-            <div class="checkout-content">
-                <div class="checkout-customer-information">
-                    <div class="shipping-information-container">
-                        <h2>Shipping information</h2>
-                        <div class="shipping-information-inputs">
-                            <input type="text" class="shipping-information-input" id="full-name"
-                                placeholder="Full name" required>
-                            <input type="email" class="shipping-information-input" id="email" placeholder="E-mail" required>
-                            <input type="text" class="shipping-information-input" id="address" placeholder="Address" required>
-                            <input type="text" class="shipping-information-input" id="city-state-zipcode"
-                                placeholder="City, State, ZIP" required>
-                        </div>
-                    </div>
-                    <div class="payment-method-container">
-                        <h2>Payment method</h2>
-                        <div class="payment-methods-selectors">
-                            <input type="radio" id="credit-card" name="payment-method" value="credit-card" checked>
-                            <label for="credit-card">Credit card</label>
-                        </div>
-                        <div class="payment-method-inputs">
-                            <input type="text" placeholder="Card number (Numbers only)" maxlength="19" v-model="cardNumber" @input="handleCardNumber" required>
-                            <div class="payment-method-expiration-cvv">
-                                <input type="text" placeholder="Card owner name" class="card-owner-name-input" required>
-                                <input type="text" placeholder="Expiration Date (MM/YYYY)" class="expiration-date-input" maxlength="7" v-model="expirationDate" @input="handleExpirationDate" required>
-                                <input type="text" placeholder="CVV" class="cvv-input" maxlength="3" @keypress="allowOnlyNumbers" required>
+            <div>
+                <form @submit.prevent="completeOrder" class="checkout-content" ref="checkoutForm">
+                    <div class="checkout-customer-information">
+                        <div class="shipping-information-container">
+                            <h2>Shipping information</h2>
+                            <div class="shipping-information-inputs">
+                                <input type="text" class="shipping-information-input" id="full-name"
+                                    placeholder="Full name" required>
+                                <input type="email" class="shipping-information-input" id="email" placeholder="E-mail"
+                                    required>
+                                <input type="text" class="shipping-information-input" id="address" placeholder="Address"
+                                    required>
+                                <input type="text" class="shipping-information-input" id="city-state-zipcode"
+                                    placeholder="City, State, ZIP" required>
                             </div>
                         </div>
-                    </div>
-                    <div class="accept-terms">
-                        <input type="checkbox" id="accept-terms" required>
-                        <label for="accept-terms">I agree to the terms and conditions</label>
-                    </div>
-                </div>
-                <div class="checkout-cart-information">
-                    <div class="checkout-cart-information-container">
-                        <h2>Order summary</h2>
-                        <div class="order-summary-items">
-                            <div v-for="item in cart" :key="item.id">
-                                <div class="order-summary-item">
-                                    <div class="order-summary-item-title-and-quantity">
-                                        <p>{{ item.title }}</p>
-                                        <div>
-                                            <p>x{{ item.quantity }}</p>
-                                        </div>
-                                    </div>
-                                    <p class="order-summary-item-price">
-                                        US$ {{ (item.price).toFixed(2) }}
-                                    </p>
+                        <div class="payment-method-container">
+                            <h2>Payment method</h2>
+                            <div class="payment-methods-selectors">
+                                <input type="radio" id="credit-card" name="payment-method" value="credit-card" checked>
+                                <label for="credit-card">Credit card</label>
+                            </div>
+                            <div class="payment-method-inputs">
+                                <input type="text" placeholder="Card number (Numbers only)" maxlength="19"
+                                    v-model="cardNumber" @input="handleCardNumber" required>
+                                <div class="payment-method-expiration-cvv">
+                                    <input type="text" placeholder="Card owner name" class="card-owner-name-input"
+                                        required>
+                                    <input type="text" placeholder="Expiration Date (MM/YYYY)"
+                                        class="expiration-date-input" maxlength="7" v-model="expirationDate"
+                                        @input="handleExpirationDate" required>
+                                    <input type="text" placeholder="CVV" class="cvv-input" maxlength="3"
+                                        @keypress="allowOnlyNumbers" required>
                                 </div>
                             </div>
                         </div>
-                        <div class="order-summary-subtotal-information">
-                            <div class="order-summary-flex-separator">
-                                <p>Subtotal</p>
-                                <span>US$ {{ (cartStore.totalPrice).toFixed(2) }}</span>
-                            </div>
-                            <div class="order-summary-flex-separator">
-                                <p>Shipping</p>
-                                <span>US$ {{ fixedShippingCost.toFixed(2) }}</span>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="order-summary-flex-separator">
-                                <p>Total</p>
-                                <span>US$ {{ (cartStore.totalPrice + fixedShippingCost).toFixed(2) }}</span>
-                            </div>
+                        <div class="accept-terms">
+                            <input type="checkbox" id="accept-terms" required>
+                            <label for="accept-terms">I agree to the terms and conditions</label>
                         </div>
                     </div>
-                    <div class="checkout-cart-actions">
-                        <div>
-                            <router-link to="/">
-                                <button class="add-more-items-button">Add more items</button>
-                            </router-link>
-                            <button class="clear-cart-btn" @click="cartStore.clearCart()">
-                                Cancel order
-                            </button>
+                    <div class="checkout-cart-information">
+                        <div class="checkout-cart-information-container">
+                            <h2>Order summary</h2>
+                            <div class="order-summary-items">
+                                <div v-for="item in cart" :key="item.id">
+                                    <div class="order-summary-item">
+                                        <div class="order-summary-item-title-and-quantity">
+                                            <p>{{ item.title }}</p>
+                                            <div>
+                                                <p>x{{ item.quantity }}</p>
+                                            </div>
+                                        </div>
+                                        <p class="order-summary-item-price">
+                                            US$ {{ (item.price).toFixed(2) }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="order-summary-subtotal-information">
+                                <div class="order-summary-flex-separator">
+                                    <p>Subtotal</p>
+                                    <span>US$ {{ (cartStore.totalPrice).toFixed(2) }}</span>
+                                </div>
+                                <div class="order-summary-flex-separator">
+                                    <p>Shipping</p>
+                                    <span>US$ {{ fixedShippingCost.toFixed(2) }}</span>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="order-summary-flex-separator">
+                                    <p>Total</p>
+                                    <span>US$ {{ (cartStore.totalPrice + fixedShippingCost).toFixed(2) }}</span>
+                                </div>
+                            </div>
                         </div>
-                        <button @click="completeOrder">Place order</button>
+                        <div class="checkout-cart-actions">
+                            <div>
+                                <router-link to="/">
+                                    <button class="add-more-items-button">Add more items</button>
+                                </router-link>
+                                <button class="clear-cart-btn" @click="cartStore.clearCart()">
+                                    Cancel order
+                                </button>
+                            </div>
+                            <button @click="completeOrder" type="submit">Place order</button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
         <div v-else>
