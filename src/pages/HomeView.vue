@@ -7,7 +7,10 @@ import CartFilter from '../components/CartFilter.vue'
 const store = useEcommerceStore()
 const products = computed(() => store.filteredProducts)
 
-onMounted(() => store.loadProducts())
+onMounted(() => {
+    store.activeFilters = {...store.activeFilters, priceRange: [0, 1000], categories: []}
+    store.loadProducts()
+})
 </script>
 
 <template>
