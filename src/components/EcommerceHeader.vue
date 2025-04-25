@@ -52,7 +52,7 @@ import BagButton from './BagButton.vue'
     gap: 0.5rem;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
     .header-container-title {
         gap: 0.5rem;
 

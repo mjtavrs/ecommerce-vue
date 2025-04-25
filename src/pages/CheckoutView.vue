@@ -384,7 +384,7 @@ input[type=email] {
     }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
     h1 {
         font-size: 2.5rem;
     }

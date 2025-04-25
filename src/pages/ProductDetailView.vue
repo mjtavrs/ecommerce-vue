@@ -241,7 +241,7 @@ watch(() => route.params.id, async (newId) => {
     }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
     .product-container-wrapper {
         flex-direction: column;
         gap: 1rem;

@@ -222,7 +222,7 @@ const cart = cartStore.cart;
   gap: 1rem;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
   .cart-modal {
     max-height: 60vh;
   }

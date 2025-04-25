@@ -292,7 +292,7 @@ const cart = computed(() => cartStore.cart)
     }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
     .cart-container-header {
         flex-direction: column;
         justify-content: center;

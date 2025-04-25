@@ -74,7 +74,7 @@ img {
     }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
     img {
         width: 60%;
     }
