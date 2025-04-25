@@ -31,6 +31,7 @@ handleOrderNumberCreationAndResetCart()
                 Order <span>#{{ orderNumber }}</span> successfully placed
             </h1>
             <p>You'll receive more details about your order by e-mail, including tracking information.</p>
+            <p>Return to our <router-link to="/">shop</router-link> to find more items!</p>
         </div>
     </main>
 </template>
@@ -69,6 +70,26 @@ img {
         a {
             color: olivedrab;
             font-weight: 500;
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    img {
+        width: 60%;
+    }
+
+    .order-successful-container-message {
+        gap: 2rem;
+        text-align: center;
+
+        h1 {
+            font-size: 2.5rem;
+            line-height: 100%;
+        }
+
+        p {
+            font-size: 1rem;
         }
     }
 }

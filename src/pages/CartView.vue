@@ -9,10 +9,10 @@ const cart = computed(() => cartStore.cart)
 
 <template>
     <main class="cart-container">
-        <div class="cart-container-header">
+        <div class="cart-container-header" v-if="cart.length">
             <h1>Review your items</h1>
             <router-link to="/">
-                <button v-if="cart.length">
+                <button>
                     <PhShoppingCart :size="30" />
                     Continue shopping
                 </button>
@@ -362,6 +362,20 @@ const cart = computed(() => cartStore.cart)
 
         p {
             margin-top: 1rem;
+        }
+    }
+
+    .empty-cart-message {
+        gap: 1rem;
+        padding-block: 5rem;
+        text-align: center;
+
+        h2 {
+            font-size: 2rem;
+        }
+
+        p {
+            font-size: 1rem;
         }
     }
 }

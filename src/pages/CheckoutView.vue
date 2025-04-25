@@ -284,8 +284,8 @@ input[type=email] {
 
 .order-summary-items {
     display: flex;
-    gap: 2rem;
     flex-direction: column;
+    gap: 2rem;
 }
 
 .order-summary-item {
@@ -381,6 +381,70 @@ input[type=email] {
         background-color: var(--green);
         color: white;
         border: 1px solid transparent;
+    }
+}
+
+@media (max-width: 767px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .checkout-content {
+        flex-direction: column;
+    }
+
+    .checkout-customer-information, .checkout-cart-information {
+        width: 100%;
+    }
+
+    .checkout-customer-information {
+        border-right: none;
+        gap: 2rem;
+        padding-right: 0;
+        margin-right: 0;
+    }
+
+    .payment-method-inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .payment-method-expiration-cvv {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .expiration-date-input,
+    .cvv-input {
+        width: 100%;
+    }
+
+    .accept-terms {
+        font-size: 0.875rem;
+        margin-bottom: 2rem;
+    }
+
+
+    .order-summary-items {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .order-summary-item {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .order-summary-item-title-and-quantity {
+        width: 48%;
     }
 }
 </style>

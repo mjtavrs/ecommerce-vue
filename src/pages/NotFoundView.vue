@@ -43,4 +43,28 @@ img {
         }
     }
 }
+
+@media (max-width: 767px) {
+    .not-found-container {
+        gap: 1rem;
+    }
+
+    img {
+        width: 60%;
+    }
+
+    .not-found-container-message {
+        gap: 2rem;
+        text-align: center;
+
+        h1 {
+            font-size: 2.5rem;
+            line-height: 100%;
+        }
+
+        p {
+            font-size: 1rem;
+        }
+    }
+}
 </style>
