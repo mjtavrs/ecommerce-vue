@@ -86,7 +86,7 @@ watch(() => route.params.id, async (newId) => {
                         </div>
                         <div class="product-container-add-to-bag">
                             <button @click="handleAddToCart" class="add-to-bag-button">Add to cart</button>
-                            <div @click="handleAddToCart" class="product-container-add-to-bag-animated-icon">
+                            <div class="product-container-add-to-bag-animated-icon">
                                 <PhShoppingCartSimple :size="30" color="white" />
                                 <span>
                                     <PhPlus :size="12" weight="bold" v-if="!addedToCart"/>
@@ -215,20 +215,15 @@ watch(() => route.params.id, async (newId) => {
 
 .add-to-bag-button {
     padding-inline: 2rem;
+    width: 25%;
 }
 
 .product-container-add-to-bag-animated-icon {
     background-color: var(--green);
     border-radius: 10px;
-    cursor: pointer;
     line-height: 0;
     position: relative;
     padding: 0.65rem;
-    transition: background-color 250ms ease-in-out;
-
-    &:hover {
-        background-color: #3a5c54;
-    }
 
     span {
         background-color: var(--beige);

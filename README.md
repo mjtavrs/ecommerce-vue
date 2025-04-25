@@ -10,6 +10,7 @@ The project was created for three different viewports: **mobile**, **laptop** an
 - [FakeStore API](https://fakestoreapi.com/docs)
 - [Pinia](https://pinia.vuejs.org/) + [Persisted State](https://prazdevs.github.io/pinia-plugin-persistedstate/)
 - [Vue Router](https://router.vuejs.org/)
+- [Tippy.js](https://atomiks.github.io/tippyjs/)
 - [Phosphor Icons](https://github.com/phosphor-icons/vue)
 - [Vite](https://vite.dev/)
 

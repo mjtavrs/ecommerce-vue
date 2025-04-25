@@ -30,11 +30,26 @@ watch(() => route.fullPath, () => {
   <span class="header-container-actions-wrapper" >
     <PhBasket :size="20" color="white" @click="toggleShowBag"  />
     <span class="header-container-total-items" v-if="!showBag">{{ cartStore.totalItems }}</span>
-    <BagModal v-if="showBag" />
+    <Transition name="slide-fade" mode="out-in">
+      <BagModal v-if="showBag" />
+    </Transition>
   </span>
 </template>
 
 <style scoped>
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition: all 500ms ease-in-out;
+}
+
+.slide-fade-enter-from {
+  opacity: 0;
+}
+
+.slide-fade-leave-to {
+  opacity: 0;
+}
+
 .header-container-actions-wrapper {
   position: relative;
 }

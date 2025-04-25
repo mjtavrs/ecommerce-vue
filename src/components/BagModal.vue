@@ -1,6 +1,6 @@
 <script setup>
 import { useEcommerceStore } from '../store/ecommerce';
-import { PhTrash } from '@phosphor-icons/vue';
+import { PhQuestionMark, PhTrash } from '@phosphor-icons/vue';
 
 const cartStore = useEcommerceStore();
 
@@ -11,6 +11,10 @@ const cart = cartStore.cart;
   <div class="cart-modal">
     <div class="cart-modal-header">
       <h2>Your bag</h2>
+      <span
+        v-tippy="{ content: 'You can press ESC to close this modal', placement: 'top-end', arrow: true, delay: 50, theme: 'light-border' }">
+        <PhQuestionMark :size="20" weight="bold" />
+      </span>
     </div>
 
     <div class="cart-modal-body">
@@ -61,9 +65,9 @@ const cart = cartStore.cart;
   background-color: white;
   border-radius: 10px;
   border: 1px solid var(--medium-gray);
-  -webkit-box-shadow: 0px 0px 25px 1px rgba(31,31,31,0.30);
-  -moz-box-shadow: 0px 0px 25px 1px rgba(31,31,31,0.30);
-  box-shadow: 0px 0px 25px 1px rgba(31,31,31,0.30);
+  -webkit-box-shadow: 0px 0px 25px 1px rgba(31,31,31,0.20);
+  -moz-box-shadow: 0px 0px 25px 1px rgba(31,31,31,0.20);
+  box-shadow: 0px 0px 25px 1px rgba(31,31,31,0.20);
   cursor: default;
   display: flex;
   flex-direction: column;
@@ -78,10 +82,19 @@ const cart = cartStore.cart;
 
 .cart-modal-header {
   border-bottom: 2px solid var(--medium-gray);
+  display: flex;
+  justify-content: space-between;
   padding: 1rem 0 0.5rem;
 
   h2 {
     font-weight: 400;
+  }
+
+  span {
+    background-color: var(--beige);
+    border-radius: 9999px;
+    padding: 0.5rem;
+    line-height: 0;
   }
 }
 
