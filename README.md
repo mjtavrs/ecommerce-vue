@@ -141,8 +141,7 @@ ecommerce-vue/
     │   ├── CheckoutView.vue
     │   ├── HomeView.vue
     │   ├── NotFoundView.vue
-    │   ├── OrderSuccessView.vue
-    │   └── ProductDetailView.js
+    │   └── OrderSuccessView.vue
     ├── router/
     │   └── index.js
     └── store/
