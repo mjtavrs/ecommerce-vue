@@ -235,4 +235,14 @@ button {
     margin-top: 1rem;
 }
 
+@media (max-width: 767px) {
+    aside {
+        width: 100%;
+    }
+
+    .categories-container {
+        gap: 0;
+        justify-content: space-between;
+    }
+}
 </style>

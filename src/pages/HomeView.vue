@@ -51,4 +51,10 @@ onMounted(() => {
     opacity: 0;
     transform: scale(0.7);
 }
+
+@media (max-width: 767px) {
+    .container {
+        flex-direction: column;
+    }
+}
 </style>

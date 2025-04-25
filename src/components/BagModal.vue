@@ -61,9 +61,9 @@ const cart = cartStore.cart;
   background-color: white;
   border-radius: 10px;
   border: 1px solid var(--medium-gray);
-  -webkit-box-shadow: 0px 0px 25px 1px rgba(31,31,31,0.20);
-  -moz-box-shadow: 0px 0px 25px 1px rgba(31,31,31,0.20);
-  box-shadow: 0px 0px 25px 1px rgba(31,31,31,0.20);
+  -webkit-box-shadow: 0px 0px 25px 1px rgba(31,31,31,0.30);
+  -moz-box-shadow: 0px 0px 25px 1px rgba(31,31,31,0.30);
+  box-shadow: 0px 0px 25px 1px rgba(31,31,31,0.30);
   cursor: default;
   display: flex;
   flex-direction: column;
@@ -222,4 +222,9 @@ const cart = cartStore.cart;
   gap: 1rem;
 }
 
+@media (max-width: 767px) {
+  .cart-modal {
+    max-height: 60vh;
+  }
+}
 </style>

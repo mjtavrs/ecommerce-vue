@@ -51,4 +51,18 @@ import BagButton from './BagButton.vue'
     display: flex;
     gap: 0.5rem;
 }
+
+@media (max-width: 767px) {
+    .header-container-title {
+        gap: 0.5rem;
+
+        img {
+            width: 75px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+    }
+}
 </style>

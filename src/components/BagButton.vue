@@ -3,7 +3,7 @@ import { ref, watch, onMounted, onBeforeUnmount } from "vue";
 import { useRoute } from "vue-router";
 import { PhBasket } from "@phosphor-icons/vue";
 import { useEcommerceStore } from "../store/ecommerce";
-import CartModal from "./BagModal.vue";
+import BagModal from "./BagModal.vue";
 
 const cartStore = useEcommerceStore();
 const showBag = ref(false);
@@ -30,7 +30,7 @@ watch(() => route.fullPath, () => {
   <span class="header-container-actions-wrapper" >
     <PhBasket :size="20" color="white" @click="toggleShowBag"  />
     <span class="header-container-total-items" v-if="!showBag">{{ cartStore.totalItems }}</span>
-    <CartModal v-if="showBag" />
+    <BagModal v-if="showBag" />
   </span>
 </template>
 

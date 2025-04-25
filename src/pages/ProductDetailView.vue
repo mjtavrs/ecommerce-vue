@@ -240,4 +240,42 @@ watch(() => route.params.id, async (newId) => {
         right: 5%;
     }
 }
+
+@media (max-width: 767px) {
+    .product-container-wrapper {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .product-container-image {
+        width: 100%;
+    }
+
+    .product-title {
+        font-size: 2rem;
+    }
+
+    .product-price {
+        font-size: 1.75rem;
+        padding-top: 0.5rem;
+    }
+
+    .product-rating {
+        font-size: 1rem;
+    }
+
+    .product-description {
+        font-size: 1.175rem;
+    }
+
+    .product-container-actions {
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .product-container-add-to-bag {
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+}
 </style>
